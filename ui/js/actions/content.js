@@ -313,22 +313,28 @@ export function doPurchaseUri(uri, purchaseModalName) {
   };
 }
 
-export function doFetchClaimsByChannel(uri, page = 1) {
+export function doFetchClaimsByChannel(uri, page) {
   return function(dispatch, getState) {
     dispatch({
       type: types.FETCH_CHANNEL_CLAIMS_STARTED,
-      data: { uri },
+      data: { uri, page },
     });
 
     lbry.claim_list_by_channel({ uri, page }).then(result => {
       const claimResult = result[uri],
-        claims = claimResult ? claimResult.claims_in_channel : [];
+        claims = claimResult ? claimResult.claims_in_channel : [],
+        totalPages = claimResult
+          ? claimResult.claims_in_channel_pages
+          : undefined,
+        currentPage = claimResult ? claimResult.returned_page : undefined;
 
       dispatch({
         type: types.FETCH_CHANNEL_CLAIMS_COMPLETED,
         data: {
           uri,
-          claims: claims,
+          claims,
+          totalPages,
+          page: currentPage,
         },
       });
     });

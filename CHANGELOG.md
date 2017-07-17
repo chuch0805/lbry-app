@@ -14,10 +14,12 @@ Web UI version numbers should always match the corresponding version of LBRY App
   * Replaced free speech flag (used when image is missing) with labeled color tiles
   * Added a loading message to file actions
   * URL is auto suggested in Publish Page
+  * Added infinite scroll to channel pages
 
 ### Changed
   * Publishes now uses claims rather than files
   * Publishing revamped. Editing claims is much easier.
+  * Made channel claim storage more efficient
 
 ### Fixed
   * Fixed bug with download notice when switching window focus
